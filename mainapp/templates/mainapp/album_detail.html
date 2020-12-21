@@ -1,54 +1,45 @@
 {% extends 'mainapp/header.html' %}
-
-{% block content %}
-<div class="row">
-         <div class="col-md-6 col-md-offset-3">
-             <h1 style=" text-align: center;font-family:'Droid Serif', serif; border-bottom:3px solid Black;"> {{album.place }}</h1>
-             <div class="col-md-2 col-md-offset-10">
-                 <a class="btn btn-info" href="{% url 'journal-add' album.id %}" role="button" style="display:inline;">Add Journal</a>
-             </div>
-
-    <div class=" col-md-12 ">
-        {% for journal in album.journal_set.all %}
-                <div class="row">
-                    <div class=" col-md-12">
-
+    {% block content %}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1 style=" text-align: center;font-family:'Droid Serif', serif; border-bottom:3px solid Black;"> {{album.place }}</h1>
+                <div class="col-md-2 col-md-offset-10">
+                    <a class="btn btn-info" href="{% url 'journal-add' album.id %}" role="button" style="display:inline;">Add Journal</a>
+                </div>
+                <div class=" col-md-12 ">
+                {% for journal in album.journal_set.all %}
+                    <div class="row">
+                        <div class=" col-md-12">
                             <div class="panel-body" style="text-align:justify;">
-
-             <h3 style="font-family:'Droid Serif', serif;font-size: 40px; text-align:center; border-bottom:3px solid Black;"> {{journal.journal_title}}</h3>
-
-               <footer style="font-family:'Droid Serif', serif;font-size: 20px; font-weight:bold;">{{journal.date }}</footer>
-                <footer style="font-family:'Droid Serif', serif;font-size: 15px; font-weight:bold;">{{journal.time}}</footer>
-
+                                <h3 style="font-family:'Droid Serif', serif;font-size: 40px; text-align:center; border-bottom:3px solid Black;"> {{journal.journal_title}}</h3>
+                                <footer style="font-family:'Droid Serif', serif;font-size: 20px; font-weight:bold;">{{journal.date }}</footer>
+                                <footer style="font-family:'Droid Serif', serif;font-size: 15px; font-weight:bold;">{{journal.time}}</footer>
                                 <br>
                                 <br>
                                 {% if journal.journal_image.url != null %}
                                 <img src="{{journal.journal_image.url}}" alt="Responsive image" class="img-responsive" style="width:auto; height:440px;">
-                            {% endif%}
+                                {% endif%}
                                 <br>
-                     <p style="font-family:'Lobster', cursive; font-size: 17px;">{{journal.journal_details}}</p>
-                                 <form action="{% url 'journal-update' journal.id %}" method="post" style="display:inline;" >
-                             {% csrf_token %}
-                             <input type="hidden" name="album_id" value="{{album.id }}">
-                             <button type="submit" class="btn btn-default btn-sm">
-                             <span class="glyphicon glyphicon-pencil"></span>
-                             </button>
-                         </form>
-                <form action="{% url 'journal-delete' journal.id %}" method="post" style="display:inline;" >
-                             {% csrf_token %}
-                             <input type="hidden" name="album_id" value="{{album.id }}">
-                             <button type="submit" class="btn btn-default btn-sm">
-                             <span class="glyphicon glyphicon-trash"></span>
-                             </button>
-                         </form>
-                                </div>
+                                <p style="font-family:'Lobster', cursive; font-size: 17px;">{{journal.journal_details}}</p>
+                                <form action="{% url 'journal-update' journal.id %}" method="post" style="display:inline;" >
+                                {% csrf_token %}
+                                    <input type="hidden" name="album_id" value="{{album.id }}">
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                </form>
+                                <form action="{% url 'journal-delete' journal.id %}" method="post" style="display:inline;" >
+                                {% csrf_token %}
+                                    <input type="hidden" name="album_id" value="{{album.id }}">
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </form>
                             </div>
-                            </div>
-
+                        </div>
+                    </div>
                 {% endfor %}
-          </div>
-
                 </div>
-              </div>
-
-{%endblock %}
+            </div>
+        </div>
+    {%endblock %}

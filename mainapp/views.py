@@ -1,6 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
@@ -32,7 +32,7 @@ class AlbumUpdate(UpdateView):
 
 class AlbumDelete(DeleteView):
     model = Album
-    success_url = reverse_lazy('index')
+    success_url = reverse('index')
 
 
 class JournalCreate(CreateView):
@@ -47,7 +47,7 @@ class JournalUpdate(UpdateView):
 
 class JournalDelete(DeleteView):
     model = Journal
-    success_url = reverse_lazy('index')
+    success_url = reverse('index')
 
 
 class UserFormView(View):
